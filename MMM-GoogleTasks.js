@@ -90,13 +90,13 @@ Module.register("MMM-GoogleTasks",{
 		}
 
 		if (!this.tasks) {
-			if (this.Loaded && !this.config.showOnEmpty) {
+			if (this.loaded && !this.config.showOnEmpty) {
 				this.hide();
 			}
 			wrapper.innerHTML = (this.loaded) ? "EMPTY" : "LOADING";
 			wrapper.className = this.config.tableClass + " dimmed";
 			return wrapper;
-		} else if (this.hidden && !this.config.showOnEmpty) this.show();
+		} else if (this.hidden && this.loaded && !this.config.showOnEmpty) this.show();
 		
 		if (this.config.ordering === "myorder") { 
 

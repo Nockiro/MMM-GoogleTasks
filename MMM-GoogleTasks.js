@@ -10,7 +10,7 @@ Module.register("MMM-GoogleTasks",{
 		updateInterval: 10000, // Time between content updates (millisconds)
 		animationSpeed: 2000, // Speed of the update animation (milliseconds)
 		tableClass: "small", // Name of the classes issued from main.css
-		
+		showOnEmpty: true
 		// Pointless for a mirror, not currently implemented
 		/* 
 		dueMax: "2040-07-11T18:30:00.000Z", // RFC 3339 timestamp 
@@ -90,11 +90,14 @@ Module.register("MMM-GoogleTasks",{
 		}
 
 		if (!this.tasks) {
+			if (this.Loaded && !this.config.showOnEmpty) {
+				this.hide();
+			}
 			wrapper.innerHTML = (this.loaded) ? "EMPTY" : "LOADING";
 			wrapper.className = this.config.tableClass + " dimmed";
 			return wrapper;
-		}
-
+		} else if (this.hidden && !this.config.showOnEmpty) this.show();
+		
 		if (this.config.ordering === "myorder") { 
 
 			var titleWrapper, dateWrapper, noteWrapper;
